@@ -18,16 +18,8 @@ def type_text(path, text):
 browser = webdriver.Firefox()
 
 print('===== Cadastrador de Emails Automatico do Galeno =====')
-print('começando em 3')
-time.sleep(1)
-print('começando em 2')
-time.sleep(1)
-print('começando em 1...')
-time.sleep(1)
 print('* Abrindo site e iniciando cadastro *')
 browser.get('https://signup.live.com/')
-
-time.sleep(1)
 type_text('//*[@id="MemberName"]', 'luana.2108santiago@outlook.com')
 click('//*[@id="iSignupAction"]')
 click('//*[@id="ShowHidePasswordCheckbox"]')

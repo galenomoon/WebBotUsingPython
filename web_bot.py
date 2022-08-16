@@ -2,31 +2,62 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 
+
+
+def alert(type):
+    if type == 'error':
+        browser.close()
+        print('🙁 Ops! Não consegui executar esse comando...')
+    if type == 'line':
+        print('-------------------------')
+    return
+
 def click(path):
- print('-------------------------')
- time.sleep(1)
- print(f'Click em: {path}')
- return browser.find_element_by_xpath(path).click()
+    alert('line')
+    print(f'Click em: {path}')
+    try:
+        browser.find_element_by_xpath(path).click()
+    except:
+        alert('error')
+    return
 
 def type_text(path, text):
- print('-------------------------')
- time.sleep(1)
- print(f"Input {path} selecionado")
- print(f"Texto digitado: {text}")
- return browser.find_element_by_xpath(path).send_keys(text)
+    alert('line')
+    print(f"Input {path} selecionado")
+    try:
+        browser.find_element_by_xpath(path).send_keys(text)
+        print(f"Texto digitado: {text}")
+    except:
+        alert('error')
+    return
 
-browser = webdriver.Firefox()
+def login(email, password):
+    print('-------------------------')
+    print("--- Efetuando Login ---")
+    type_text('//*[@id="mui-1"]', email)
+    type_text('//*[@id="mui-3"]', password)
+    click('//*[@id="app-content"]/div/div[1]/div/div/div[4]/button')
+    return
 
-print('===== Cadastrador de Emails Automatico do Galeno =====')
+def register():
+    type_text('//*[@id="Email"]', 'email.do.usuario@teste.com')
+    type_text('//*[@id="Name"]', 'Frajola Santiago')
+    click('//*[@id="insertMachine"]')
+    click('//*[@id="cbo-mchstr-machine"]/option[6]')
+    return
+
+print('===== TESTE =====')
+email = input('Digite seu email de acesso: ')
+password = input('Digite sua senha de acesso: ')
+
 print('* Abrindo site e iniciando cadastro *')
-browser.get('https://signup.live.com/')
-type_text('//*[@id="MemberName"]', 'luana.2108santiago@outlook.com')
-click('//*[@id="iSignupAction"]')
-click('//*[@id="ShowHidePasswordCheckbox"]')
-type_text('//*[@id="PasswordInput"]', '123lkjaslkj981239KJK')
-click('//*[@id="iSignupAction"]')
-type_text('//*[@id="FirstName"]', 'Luana')
-type_text('//*[@id="LastName"]', 'Santiago')
-click('//*[@id="iSignupAction"]')
+browser = webdriver.Chrome(executable_path='/tmp/chromedriver')
+browser.get('https://app.leadlovers.com/v4/OldLeads/Details')
+login(email, password)
+time.sleep(4)
+click('//*[@id="popup-news"]/div[2]/div/div[1]/button')
+
+register()
+
 browser.close()
 print('Cadastro concluído :D')

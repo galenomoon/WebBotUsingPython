@@ -2,9 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 
-# contato@dentistaespecializado.com
-# zetalana1970
-
 
 def alert(type):
     if type == 'error':
